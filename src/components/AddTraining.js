@@ -10,7 +10,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import Stack from '@mui/material/Stack';
 
 function Addtraining({ addTraining, params }) {
     const [open, setOpen] = React.useState(false);
@@ -30,7 +29,7 @@ function Addtraining({ addTraining, params }) {
         setCustomer({
             name: params.data.firstname + " " + params.data.lastname
         })
-        console.log(params.value);
+        console.log(params);
     }
 
     const handleClose = () => {
@@ -38,10 +37,7 @@ function Addtraining({ addTraining, params }) {
     }
 
     const handleSave = () => {
-        console.log(params.value);
-        console.log(training);
         addTraining(training);
-        console.log(training);
         setTraining({
             date: '',
             activity: '',

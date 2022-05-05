@@ -21,29 +21,28 @@ function TrainingsPage() {
 
     const fetchTrainings = () => {
         fetch("https://customerrest.herokuapp.com/gettrainings")
-        .then(response => response.json())
-        .then(data => setTrainings(data))
-        .catch(err => console.error(err))
+            .then(response => response.json())
+            .then(data => setTrainings(data))
+            .catch(err => console.error(err))
     }
 
     const deleteTraining = (id) => {
         if (window.confirm('Are you sure?')) {
         fetch("https://customerrest.herokuapp.com/api/trainings/" + id, {method: 'DELETE'})
-        .then(response => {
-            if (response.ok) {
-                setMsg("Training was deleted successfully");
-                setOpen(true);
-                fetchTrainings();
-            }
-            else {
-                alert("Something went wrong!")
-            }
-        })
+            .then(response => {
+                if (response.ok) {
+                    setMsg("Training was deleted successfully");
+                    setOpen(true);
+                    fetchTrainings();
+                }
+                else {
+                    alert("Something went wrong!")
+                }
+            })
         }
     }
 
     const customerName = (params) => {
-        console.log(params);
         return params.data.customer.firstname + " " + params.data.customer.lastname;
     };
 
@@ -57,18 +56,18 @@ function TrainingsPage() {
                 width: 160 ,
             },
             {
-            headerName: '',
-            width: 90,
-            field: 'links.0.href',
-            cellRenderer: params => 
-            <IconButton color="error" onClick={() => deleteTraining(params.data.id)}>
-            <DeleteIcon />
-            </IconButton>
+                headerName: '',
+                width: 90,
+                field: 'links.0.href',
+                cellRenderer: params => 
+                <IconButton color="error" onClick={() => deleteTraining(params.data.id)}>
+                    <DeleteIcon />
+                </IconButton>
             }
         ]
 
     const onExportClick = useCallback(() => {
-    gridRef.current.api.exportDataAsCsv();
+        gridRef.current.api.exportDataAsCsv();
     }, []);
 
     return (

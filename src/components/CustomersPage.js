@@ -25,13 +25,13 @@ function CustomersPage() {
 
     const fetchCustomers = () => {
         fetch("https://customerrest.herokuapp.com/api/customers")
-        .then(response => response.json())
-        .then(data => setCustomer(data.content))
-        .catch(err => console.error(err))
+            .then(response => response.json())
+            .then(data => setCustomer(data.content))
+            .catch(err => console.error(err))
     }
 
     const onExportClick = useCallback(() => {
-    gridRef.current.api.exportDataAsCsv();
+        gridRef.current.api.exportDataAsCsv();
     }, []);
 
     const deleteCustomer = (link) => {
@@ -57,14 +57,14 @@ function CustomersPage() {
             body: JSON.stringify(customer)
         })
         .then(response => {
-        if (response.ok) {
-            setMsg('Customer added successfully');
-            setOpen(true);
-            fetchCustomers();
-        }
-        else {
-            alert('Something went wrong when adding a customer!');
-        }
+            if (response.ok) {
+                setMsg('Customer added successfully');
+                setOpen(true);
+                fetchCustomers();
+            }
+            else {
+                alert('Something went wrong when adding a customer!');
+            }
         })
         .catch(err => console.error(err))
     }
@@ -76,37 +76,37 @@ function CustomersPage() {
             body: JSON.stringify(training)
         })
         .then(response => {
-        if (response.ok) {
-            setMsg("Training was added succesfully");
-            setOpen(true);
-            fetchCustomers();
-        }
-        else {
-            alert("Something went wrong with adding a training!")
-        }
-        })
-        .catch(err => console.error(err))
+            if (response.ok) {
+                setMsg("Training was added succesfully");
+                setOpen(true);
+                fetchCustomers();
+            }
+            else {
+                alert("Something went wrong with adding a training!")
+            }
+            })
+            .catch(err => console.error(err))
         
     }
 
     const updateCustomer = (updatedCustomer, link) => {
-    fetch(link, {
-      method: 'PUT',
-      headers: {'Content-type':'application/json'},
-      body: JSON.stringify(updatedCustomer)
-    })
-    .then(response => {
-      if (response.ok) {
-        setMsg("Customer edited succesfully");
-        setOpen(true);
-        fetchCustomers();
-      }
-      else {
-        alert("Something went wrong with updating customer details!");
-      }
-    })
-    .catch(err => console.error(err))
-  }
+        fetch(link, {
+            method: 'PUT',
+            headers: {'Content-type':'application/json'},
+            body: JSON.stringify(updatedCustomer)
+        })
+        .then(response => {
+            if (response.ok) {
+                setMsg("Customer edited succesfully");
+                setOpen(true);
+                fetchCustomers();
+            }
+            else {
+                alert("Something went wrong with updating customer details!");
+            }
+        })
+        .catch(err => console.error(err))
+    }
 
     const columns = [
         { field: 'firstname', sortable: true, filter: true, width: 140 },
