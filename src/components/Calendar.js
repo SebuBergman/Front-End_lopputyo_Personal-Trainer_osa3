@@ -16,7 +16,6 @@ export default function TrainingCalendar() {
             .then(response => response.json())
             .then(data => setTrainings(data))
             .catch(err => console.error(err))
-            console.log('trainings:',trainings);
     }
 
     const events = trainings.map((training) => {
