@@ -1,17 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useState, useRef, useEffect } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Snackbar from '@mui/material/Snackbar';
 import Addcustomer from './AddCustomer';
 import EditCustomer from './EditCustomer';
 import Addtraining from './AddTraining';
 
+import '../App.css';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
 
 
 function CustomersPage() {
+    const gridRef = useRef();
     const [customer, setCustomer] = useState([]);
     const [open, setOpen] = useState(false);
     const [msg, setMsg] = useState('');
@@ -27,10 +30,9 @@ function CustomersPage() {
         .catch(err => console.error(err))
     }
 
-    const fetchTrainings = () => {
-        fetch("https://customerrest.herokuapp.com/gettrainings")
-        .then(response => response.json())
-    }
+    const onExportClick = useCallback(() => {
+    gridRef.current.api.exportDataAsCsv();
+    }, []);
 
     const deleteCustomer = (link) => {
         if (window.confirm("Are you sure you want to delete this customer?")) {
@@ -139,14 +141,18 @@ function CustomersPage() {
 
     return (
         <>
+        <IconButton id="Exportbutton" onClick={() => onExportClick()}>
+            <FileDownloadIcon />Export
+        </IconButton>
         <Addcustomer addCustomer={addCustomer} />
         <div className="ag-theme-material" style={{ height: 600, width: '90%' }}>
             <AgGridReact
-            columnDefs={columns}
-            rowData={customer}
-            pagination={true}
-            paginationPageSize={10}
-            suppressCellFocus={true}
+                ref={gridRef}
+                columnDefs={columns}
+                rowData={customer}
+                pagination={true}
+                paginationPageSize={10}
+                suppressCellFocus={true}
             />
         </div>
         <Snackbar

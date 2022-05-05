@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+#Exportbutton {
+  font-size: 20px;
+  margin: auto;
+  padding: 10px;
+  position: absolute !important;
+  left: 0;
+}
+
+#Exportbutton2 {
+  font-size: 20px;
+  margin: auto;
+  padding: 10px;
+}
